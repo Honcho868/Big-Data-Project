@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cancellation Predictor</title>
+</head>
+<body>
+    <h2>Enter Input Features</h2>
+    <form action="/predict" method="post">
+        <input type="number" name="lead_time" placeholder="Lead Time (days)"> Enter number of days between booking and arrival<br><br>
+        <input type="number" name="stays_in_weekend_nights" placeholder="Number of Weekend Nights" min="0"> Enter number (0 or more)<br><br>
+        <input type="number" name="stays_in_week_nights" placeholder="Number of Week Nights" min="0"> Enter number (0 or more)<br><br>
+        <input type="number" name="adults" placeholder="Number of Adults" min="1"> Enter number (1 or more)<br><br>
+        <input type="number" name="children" placeholder="Number of Children" min="0"> Enter number (0 or more)<br><br>
+        <input type="number" name="babies" placeholder="Number of Babies" min="0"> Enter number (0 or more)<br><br>
+        <select name="meal">
+            <option value="" disabled selected>Select Meal Type</option>
+            <option value="BB">BB (Bed & Breakfast)</option>
+            <option value="FB">FB (Full Board)</option>
+            <option value="HB">HB (Half Board)</option>
+            <option value="SC">SC (Self Catering)</option>
+            <option value="Undefined">Undefined</option>
+        </select> Select the type of meal package booked<br><br>
+        <select name="country">
+            <option value="" disabled selected>Select Country</option>
+            <option value="PRT">PRT (Portugal)</option>
+            <option value="GBR">GBR (United Kingdom)</option>
+            <option value="FRA">FRA (France)</option>
+            <option value="ESP">ESP (Spain)</option>
+            <option value="DEU">DEU (Germany)</option>
+            <option value="ITA">ITA (Italy)</option>
+            <option value="IRL">IRL (Ireland)</option>
+            <option value="BEL">BEL (Belgium)</option>
+            <option value="NLD">NLD (Netherlands)</option>
+            <option value="USA">USA (United States)</option>
+            <option value="CHE">CHE (Switzerland)</option>
+            <option value="Other">Other</option>
+        </select> Select the country of origin<br><br>
+        <select name="market_segment">
+            <option value="" disabled selected>Select Market Segment</option>
+            <option value="Direct">Direct</option>
+            <option value="Corporate">Corporate</option>
+            <option value="Online TA">Online TA</option>
+            <option value="Offline TA/TO">Offline TA/TO</option>
+            <option value="Groups">Groups</option>
+            <option value="Aviation">Aviation</option>
+        </select> Select how the booking was made (TA = Travel Agency, TO = Tour Operator)<br><br>
+        <select name="distribution_channel">
+            <option value="" disabled selected>Select Distribution Channel</option>
+            <option value="Direct">Direct</option>
+            <option value="Corporate">Corporate</option>
+            <option value="TA/TO">TA/TO</option>
+            <option value="GDS">GDS</option>
+            <option value="Other">Other</option>
+        </select> Select the booking distribution channel (GDS = Global Distribution System)<br><br>
+        <select name="is_repeated_guest">
+            <option value="" disabled selected>Is Repeated Guest?</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select> Select if the guest has stayed at the hotel before<br><br>
+        <input type="number" name="previous_cancellations" placeholder="Previous Cancellations" min="0"> Enter number (0 or more)<br><br>
+        <input type="number" name="previous_bookings_not_canceled" placeholder="Previous Bookings Not Canceled" min="0"> Enter number (0 or more)<br><br>
+        <select name="reserved_room_type">
+            <option value="" disabled selected>Select Reserved Room Type</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+            <option value="H">H</option>
+        </select> Select the type of room initially reserved (A = highest quality, H = lowest quality)<br><br>
+        <select name="assigned_room_type">
+            <option value="" disabled selected>Select Assigned Room Type</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+            <option value="H">H</option>
+        </select> Select the type of room actually assigned (A = highest quality, H = lowest quality)<br><br>
+        <input type="number" name="booking_changes" placeholder="Booking Changes" min="0"> Enter number of changes made to booking (0 or more)<br><br>
+        <select name="deposit_type">
+            <option value="" disabled selected>Select Deposit Type</option>
+            <option value="No Deposit">No Deposit</option>
+            <option value="Non Refund">Non Refund</option>
+            <option value="Refundable">Refundable</option>
+        </select> Select the type of deposit paid for the booking<br><br>
+        <input type="number" name="days_in_waiting_list" placeholder="Days in Waiting List" min="0"> Enter number of days (0 or more)<br><br>
+        <select name="customer_type">
+            <option value="" disabled selected>Select Customer Type</option>
+            <option value="Transient">Transient</option>
+            <option value="Contract">Contract</option>
+            <option value="Group">Group</option>
+            <option value="Transient-Party">Transient-Party</option>
+        </select> Select the type of booking (Transient = short-term individual, Contract = business contract, Group = group booking)<br><br>
+        <input type="number" name="adr" placeholder="Average Daily Rate" step="0.01"> Enter price in euros (e.g. 100.00)<br><br>
+        <input type="number" name="required_car_parking_spaces" placeholder="Required Car Parking Spaces" min="0"> Enter number of spaces (0 or more)<br><br>
+        <input type="number" name="total_of_special_requests" placeholder="Total Special Requests" min="0"> Enter number of special requests (0 or more)<br><br>
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction_text %}
+        <h3>{{ prediction_text }}</h3>
+    {% endif %}
+</body>
+</html>
